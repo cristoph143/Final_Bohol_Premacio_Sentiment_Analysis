@@ -1,1 +1,80 @@
-<p>login works!</p>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title> PreBol Car Rental! </title>
+    <link rel="stylesheet" href="login.component.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <input type="checkbox" id="flip">
+        <div class="cover">
+            <div class="front">
+                <img src="assets/wall.jpeg" alt="">
+                <div class="text">
+                    <span class="text-1">Feeling sociable?</span>
+                    <span class="text-2">Start your first discourse now!</span>
+                </div>
+            </div>
+            <div class="back">
+                <img class="backImg" src="assets/wall.jpeg" alt="">
+                <div class="text">
+                    <!-- <span class="text-1">Join us now!</span>
+                        <span class="text-2">Yea right!</span> -->
+                </div>
+            </div>
+        </div>
+        <div class="form-content">
+            <div class="login-form">
+                <form class="inputs" [formGroup]="loginForm"(ngSubmit)="onSubmitLogin()">
+                    <div class="title-login">LogIn</div>
+                    <div class="input-boxes">
+                        <div class="input-box">
+                            <i class="fa fa-envelope"></i>
+                            <input type="text" #email formControlName="emailLogin" placeholder="Enter your Email" required>
+                        </div>
+                        <div class="input-box">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" formControlName="passLogin" placeholder="Enter your Password" required>
+                        </div>
+                      
+                        <div class="button input-box">
+                            <input type="submit"value="Submit">
+                        </div>
+                        <div class="text sign-up-text">Want to join us? <label for="flip"><a>Sign Up Now! </a></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="signup-form">
+                <form class="inputs" [formGroup]="registerForm" (ngSubmit)="onSubmitRegister()">
+                    <div class=" title-register ">Sign Up</div>
+                    <div class=" input-boxes">
+                        <div class="input-box">
+                            <i class="fa fa-envelope "></i>
+                            <input type="text" placeholder="Enter your Email" id="email" formControlName="emailRegister" required>
+                        </div>
+                        <div class="input-box">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" placeholder="Password" id="password" formControlName="passwordRegister" required>
+                        </div>
+                        <div class="input-box">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" placeholder="Confirm Password" id="password" formControlName="confirmPassword" required>
+                        </div>
+                        <div class="button input-box">
+                            <input type="submit" value="Submit">
+                        </div>
+                        <div class="text sign-up-text">
+                            Have an account already?
+                            <label for="flip"><a>Log In</a></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
