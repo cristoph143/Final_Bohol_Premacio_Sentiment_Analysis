@@ -1,3 +1,5 @@
+import { RepliesComponent } from './replies/replies.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -15,7 +17,18 @@ const routes: Routes = [
   {
     path: 'user-dashboard',
     component: UserDashboardComponent,
-    
+  },
+  {
+    path: 'navbar',
+    component: NavbarComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'replies',
+    component: RepliesComponent,
   },
 ];
 
