@@ -1,0 +1,62 @@
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>  </title>
+        <link rel="stylesheet" href="./create.component.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    
+        <div class="container">
+            <input type="checkbox" id="flip">
+            <form class="inputs" [formGroup]="addThreadForm">
+                <div class="form-content">
+                    <div class="admin-form">
+                        <div class="title">Create Thread</div>
+                        <div class="input-boxes">
+                            <!--INPUT FIELDS START-->
+                            <div class="input-box">
+                                <i class="fa fa-file-text"></i>
+                                <input type="text" id="threadTitle" placeholder="Thread Title" formControlName="threadTitle" required>
+                            </div>
+    
+                            <div class="input-box">
+                                <i class="fa fa-comments-o"></i>
+                                <input type="text" id="threadSub" placeholder="Description" formControlName="threadSub" required>
+                            </div>
+
+                            <!--WE NEED TO ADD MORE-->
+                            <div class="cover">
+                                <div class="front">
+                                    <!-- put the image from FormControl carimage -->
+                                    <img src="{{url}}" *ngIf="validImage" alt="car-image" class="car-image" id="carImg">
+                                    <img src="assets\Upload-Transparent.png" *ngIf="!validImage" alt="car-image" class="car-image" id="carImg"> </div>
+                                    </div>
+                                <div class="back">
+                                    <div class="text">
+                                        <!-- Add upload button -->
+                                        <div class="input-box dist">
+                                            <i class="fa fa-upload"></i>
+                                            <input type="file" id="threadImage" placeholder="Upload Image" (change)="onFileChanged($event)" formControlName="threadImage" required>
+                                        </div>
+                                        <!-- Add location like city, street,zipcode,country -->
+                                    </div>
+                                </div>
+                                <div class="button input-box">
+                                    <!-- add a clear button -->
+                                    <button type="button" class="clear-button" (click)="clearImage()">Clear</button>
+                                    <button type="button" class="clear-button" (click)="closeDialog()">Close</button>
+                                </div>
+                            </div>
+                            <!--INPUT FIELDS END-->
+                            <div class="button input-box">
+                                <input type="submit" value="Add Thread" (click)="onSubmitAdd()">
+                            </div>
+    
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+    
