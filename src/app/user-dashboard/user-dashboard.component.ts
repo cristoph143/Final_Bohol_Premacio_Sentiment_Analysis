@@ -14,6 +14,8 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 })
 export class UserDashboardComponent implements OnInit {
   threads: Threads[]=[];
+  clickLike: boolean = false;
+  clickDisLike: boolean = false;
   constructor(
     private toast: HotToastService,
     private router: Router,
@@ -29,13 +31,22 @@ export class UserDashboardComponent implements OnInit {
       console.log(this.threads);
     })
   }
-  showReplies(){
+  showReplies(thread: Threads){
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = false;
       dialogConfig.autoFocus = true;
       dialogConfig.width =  "100%";
+      dialogConfig.height =  "100%";
       this.dialog.open(RepliesComponent,dialogConfig);
+      this.crudThreads.getPassThreadValue(thread);
     
   }
-
+  addLike(thread: Threads){
+    thread.likes = thread.likes + 1;
+    this.crudThreads.modifyThreads(thread.$key,thread);
+  }
+  addDislike(thread: Threads){
+    thread.dislikes = thread.dislikes + 1;
+    this.crudThreads.modifyThreads(thread.$key,thread);
+  }
 }

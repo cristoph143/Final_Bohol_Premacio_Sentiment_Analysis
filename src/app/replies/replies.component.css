@@ -12,6 +12,7 @@
 body{
 	background: #ebecf1;
 	color: #b3b9b9;
+	
 }
 
 .view_item img{
@@ -29,6 +30,7 @@ body{
 	background: #fff;
 	border-radius: 3px;
 	padding: 1px;
+	
 }
 
 .list-view .view_item {
@@ -38,6 +40,7 @@ body{
 	padding: 10px 20px;
 	display: flex;
 	align-items: center;
+	position: relative;
 }
 
 .list-view .view_item:last-child{
@@ -54,7 +57,7 @@ body{
 }
 .view_item .description{
 	margin: 10px 0;
-	font-size: 30px;
+	font-size: 25px;
 	line-height: 22px;
 	font-weight: 500;
 }
@@ -107,7 +110,19 @@ body{
     text-align: center;
     font-size: larger;
   }
-
+.comment {
+	width: 50%;
+	height: 100px;
+	padding: 10px;
+	background-color: #d0e2bc;
+	display: block;
+	margin: auto;
+}
+.textArea{
+	margin: auto;
+	display: block;
+}
+html { overflow-y: scroll; }
 
 
 

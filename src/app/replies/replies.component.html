@@ -1,20 +1,56 @@
+<!--THREEEADDD-->
+
+    
 
 <div class="wrapper">
     <div class="view_main">
         <div class="view_wrap list-view" style="display: block;">
             <div class="view_item">
                 <div class="vi_left">
-                    <img src="" alt="User Image">
-                    <p class="content">Username</p>
-                    <p class="content">Date Replied</p>
+                    <img src="{{threads.threadImage}}" alt="Image of a car">
+                    <!-- <p class="content">Thread by: {{threads.postedBy}}</p>
+                    <p class="content">{{threads.postedDate}}</p> -->
                 </div>
                 <div class="vi_right">
-                    <p class="description"></p>
-                    <p class="content">This Thread is feeling (insert sentiment ANAL)</p>
-                    <div class="btn" style="background-color: #4abd3e;">Like </div>
-                    <div class="btn" style="background-color: red;">Dislike </div>
+                    <p class="title">{{threads.title}}</p>
+                    <p class="description">{{threads.subtitle}}</p>
+                    <!-- <p class="content">This Thread is feeling (insert sentiment ANAL)</p> -->
+                    <!-- <p class="content" (click)="showReplies()" *ngIf="thread.replies.length != 0">{{thread.postedBy}}:</p> -->
+                    
                 </div>
             </div>
         </div>
     </div>
     </div>
+    <!--END THREEEADDD-->
+<!--START REPLY LIST--->
+<div class="wrapper" *ngFor="let reply of replies">
+    <div class="view_main" >
+        <div class="view_wrap list-view" style="display: block;">
+            <div class="view_item">
+                <div class="vi_right">
+                    <p class="content" style="font-weight: bolder; font-size: 25px">{{reply.reply}}</p>
+                    <p class="content" style="font-weight:lighter;">{{reply.repliedBy}}</p>
+                    <p class="content" style="font-weight: lighter;">{{reply.repliedDate}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+<!--END REPLY LIST--->
+
+    <!--REPLLYYYY-->
+    <div class="textArea">
+    <form class="inputs" [formGroup]="addReply" method="POST">
+        <textarea class="comment" formControlName="replyString" placeholder="Type your reply"></textarea>
+        <br>
+        <div class="view_item">
+            <div class="vi_left">
+                <div class="btn" style="background-color: blue;"(click)="onSubmitReply(threads)">Reply</div>
+            </div>
+        </div>
+      </form>
+    </div>
+     <!--END REPLLYYYY-->
+     
+  

@@ -16,6 +16,18 @@ import { arrayRemove, FieldValue} from 'firebase/firestore';
 export class ThreadsService {
   private threadCollection!: AngularFirestoreCollection<Threads>;
   threads!: Observable<Threads[]>;
+    //PASS THREAD DATA
+  passThreadValues$: Subject<Threads> = new Subject();
+  get passThreadValues(): Subject<Threads>{
+    return this.passThreadValues$;
+  }
+  set passThreadValue(src: Subject<Threads>){
+    this.passThreadValues$ = src;
+  }
+  getPassThreadValue(thread: Threads){
+    this.passThreadValues$.next(thread);
+  }
+    //END PASS THREAD DATA
   constructor(
     private afs: AngularFirestore, 
     private afAuth: AngularFireAuth,
