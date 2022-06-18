@@ -1,80 +1,80 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&display=swap');
-
-*{
-	list-style: none;
-	font-family: 'Montserrat', sans-serif;
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+* {
+    list-style: none;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-	background: #ebecf1;
-	color: #b3b9b9;
-	
+body {
+    background: #ebecf1;
+    color: #b3b9b9;
 }
 
-.view_item img{
-	width: 200px;
+.view_item img {
+    width: 200px;
 }
 
-.wrapper{
-	width: 900px;
+.wrapper {
+    width: 900px;
     margin: 20px auto;
 }
 
-
-
-.view_main{
-	background: #fff;
-	border-radius: 3px;
-	padding: 1px;
-	
+.view_main {
+    background: #fff;
+    border-radius: 3px;
+    padding: 1px;
 }
 
 .list-view .view_item {
-	background: #fff;
-	border: 2px solid blue;
-	margin: 10px;
-	padding: 10px 20px;
-	display: flex;
-	align-items: center;
-	position: relative;
+    background: #fff;
+    border: 2px solid blue;
+    margin: 10px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
 }
 
-.list-view .view_item:last-child{
-	margin-bottom: 0;
+.list-view .view_item:last-child {
+    margin-bottom: 0;
 }
 
-.list-view .view_item .vi_left{
-	margin-right: 50px;
+.list-view .view_item .vi_left {
+    margin-right: 50px;
 }
 
-.view_item .title{
+.view_item .title {
     font-weight: 700;
     font-size: 30px;
 }
-.view_item .description{
-	margin: 10px 0;
-	font-size: 25px;
-	line-height: 22px;
-	font-weight: 500;
+
+.view_item .description {
+    margin: 10px 0;
+    font-size: 25px;
+    line-height: 22px;
+    font-weight: 500;
 }
 
-.view_item .content{
-	margin: 10px 0;
-	font-size: 15px;
-	line-height: 22px;
-	font-weight: 500;
+
+/* .view_wrap {
+    background-color: #3bd62b;
+} */
+
+.view_item .content {
+    margin: 10px 0;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 500;
 }
 
-.view_item .btn{
-	width: 115px;
-	background: #4abd3e;
-	padding: 8px 5px;
-	border-radius: 5px;
-	color: #fff;
+.view_item .btn {
+    width: 115px;
+    background: #4abd3e;
+    padding: 8px 5px;
+    border-radius: 5px;
+    color: #fff;
     display: inline-block;
     text-align: center;
     font-weight: 500;
@@ -82,16 +82,17 @@ body{
     cursor: pointer;
     margin-right: 10px;
 }
-.view_item .btn:hover{
-	background: #3bd62b;
+
+.view_item .btn:hover {
+    background: #3bd62b;
 }
 
-.grid-view{
-	width: 100%;
+.grid-view {
+    width: 100%;
 }
 
 .grid-view .view_item {
-	display: inline-block;
+    display: inline-block;
     border: 1px solid #e2efe1;
     width: 230px;
     padding: 25px;
@@ -99,33 +100,33 @@ body{
     margin: 10px;
 }
 
-.grid-view .view_item .vi_left{
-	margin-bottom: 10px;
+.grid-view .view_item .vi_left {
+    margin-bottom: 10px;
 }
 
-.grid-view .view_item .btn{
-	margin: 0 auto;
+.grid-view .view_item .btn {
+    margin: 0 auto;
 }
-.noThreads{
+
+.noThreads {
     text-align: center;
     font-size: larger;
-  }
+}
+
 .comment {
-	width: 50%;
-	height: 100px;
-	padding: 10px;
-	background-color: #d0e2bc;
-	display: block;
-	margin: auto;
+    width: 75%;
+    height: 100px;
+    /* padding-right: 0; */
+    background-color: #d0e2bc;
+    display: block;
+    margin: auto;
 }
-.textArea{
-	margin: auto;
-	display: block;
+
+.textArea {
+    margin: auto;
+    display: block;
 }
-html { overflow-y: scroll; }
 
-
-
-
-
-  
+html {
+    overflow-y: scroll;
+}

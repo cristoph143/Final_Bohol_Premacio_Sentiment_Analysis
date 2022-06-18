@@ -50,8 +50,11 @@ export class RepliesComponent implements OnInit {
         this.replies.push(reply[i]);
       }
      }
+    //  sort the reply by early dates first
+    // this.replies.sort((a, b) => {
+    //   return moment(a.repliedDate).diff(moment(b.repliedDate));
+    // });
       console.log(this.replies);
-      
     })
   }
   onSubmitReply(threads: Threads){
@@ -72,8 +75,7 @@ export class RepliesComponent implements OnInit {
     threads.replies.push(this.addReply.value.replyString);
     this.crudThreads.modifyThreads(threads.$key, threads);
     this.toast.success("Reply Added!");
-    this.crudReply.addReplies(payload);
-  
-    
+    this.crudReply.addReplies(payload);  
   }
+  // 
 }
