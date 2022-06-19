@@ -13,7 +13,6 @@ export class RepliesService {
   replies!: Observable<Reply[]>;
   constructor(
     private afs: AngularFirestore, 
-    private afAuth: AngularFireAuth,
   ) { 
     this.replyCollecton = this.afs.collection<Reply>('replies');
     this.replies = this.replyCollecton.snapshotChanges().pipe(//basically just to get the id from collection katong random ass numbers

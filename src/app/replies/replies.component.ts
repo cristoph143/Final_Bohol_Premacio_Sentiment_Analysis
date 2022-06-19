@@ -1,3 +1,4 @@
+import { SentimentService } from './../services/sentiment/sentiment.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { Reply } from './../services/replies/reply';
@@ -30,6 +31,7 @@ export class RepliesComponent implements OnInit {
     private crudReply: RepliesService,
     private router: Router,
     private fire: AngularFireAuth,
+    private sentiment: SentimentService,
   ) {
     this.getThreadData = this.crudThreads.passThreadValues$;
     this.getThreadData.subscribe((threads: Threads) =>{
@@ -41,6 +43,7 @@ export class RepliesComponent implements OnInit {
       this.email = user.email;
     })
     this.getReplies();
+    this.sentiment.addToFrequency();
   }
   getReplies(){
     this.replies.length = 0;
@@ -50,6 +53,7 @@ export class RepliesComponent implements OnInit {
         this.replies.push(reply[i]);
       }
      }
+    
     //  sort the reply by early dates first
     // this.replies.sort((a, b) => {
     //   return moment(a.repliedDate).diff(moment(b.repliedDate));
@@ -72,6 +76,7 @@ export class RepliesComponent implements OnInit {
       dislikes: 0,
       threadID: threads.$key,
     }
+    // payload.sentAnal = this.sentiment.preProcessing(payload.reply);
     threads.replies.push(this.addReply.value.replyString);
     this.crudThreads.modifyThreads(threads.$key, threads);
     this.toast.success("Reply Added!");

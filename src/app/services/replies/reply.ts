@@ -6,4 +6,5 @@ export interface Reply {
     likes: number,
     dislikes: number,
     threadID: string;
+    sentAnal?: string;
 }
