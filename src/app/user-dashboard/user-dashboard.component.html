@@ -15,9 +15,9 @@
                     <p class="description">{{thread.subtitle}}</p>
                     <!-- <p class="content">This Thread is feeling (insert sentiment ANAL)</p> -->
                     <!-- <p class="content" (click)="showReplies()" *ngIf="thread.replies.length != 0">{{thread.postedBy}}:</p> -->
-                    <div class="btn" style="background-color: #4abd3e;" (click)="addLike(thread)">Positive {{thread.likes}}</div>
-                    <div class="btn" style="background-color: red;"(click)="addDislike(thread)">Negative {{thread.dislikes}}</div>
-                    <div class="btn" style="background-color: grey;">Neutral</div>
+                    <div class="btn" style="background-color: #4abd3e;" >Positive {{thread.likes}}</div>
+                    <div class="btn" style="background-color: red;">Negative {{thread.dislikes}}</div>
+                    <div class="btn" style="background-color: grey;">Neutral {{thread.neutral}}</div>
                     <div class="btn" style="background-color: blue;" (click)="showReplies(thread)">Reply {{thread.replies.length}}</div>
                 </div>
             </div>

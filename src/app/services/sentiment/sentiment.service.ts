@@ -1,3 +1,5 @@
+import { ThreadsService } from './../threads/threads.service';
+import { Threads } from './../threads/threads-interface';
 import { Frequency } from './frequency';
 import { ScoreFrequencyService } from './../score/score-frequency.service'
 import { RepliesService } from './../replies/replies.service';
@@ -17,6 +19,7 @@ replies: Reply[]=[];
     private crudReplies: RepliesService,
     private crudScore: ScoreFrequencyService,
     private cdr: ApplicationRef,
+    private crudThread: ThreadsService
   ) { }
   check(reply: string){
     let sw = require('sentiword');
@@ -80,7 +83,7 @@ replies: Reply[]=[];
     this.cdr.tick();
     return unique;
   }//end method
-  getNaiveBaise(reply: string){
+  getNaiveBayes(reply: string, thread: Threads){
     let sentAnalysis: string;
     let totalPositive: number = 0, totalNegative: number = 0;
     let outString = reply.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''); 
@@ -138,6 +141,18 @@ replies: Reply[]=[];
     }else
       sentAnalysis = "Neutral"
     this.cdr.tick();
+    //update thread
+    if(sentAnalysis == "Positive"){
+      thread.likes = thread.likes + 1;
+    }
+    if(sentAnalysis == "Negative"){
+      thread.dislikes = thread.dislikes + 1;
+    }
+    if(sentAnalysis == "Neutral"){
+      thread.neutral = thread.neutral + 1;
+    }
+    this.crudThread.modifyThreads(thread.$key,thread);
+    //end update thread
     return sentAnalysis;
     
   } // end method

@@ -89,7 +89,7 @@ export class RepliesComponent implements OnInit {
     this.toast.success("Reply Added!");
     this.sentiment.addToFrequency();
     this.dialog.closeAll();
-    payload.sentAnal = this.sentiment.getNaiveBaise(payload.reply);
+    payload.sentAnal = this.sentiment.getNaiveBayes(payload.reply,threads);
     this.crudReply.addReplies(payload);  
     
     
