@@ -85,6 +85,7 @@ export class CreateComponent implements OnInit {
       postedDate: currDay,
       likes: 0,
       dislikes: 0,
+      neutral: 0,
       comments: 0,
       threadImage: this.url,
     }

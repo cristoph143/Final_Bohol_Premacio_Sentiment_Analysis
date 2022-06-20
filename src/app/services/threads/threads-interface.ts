@@ -7,6 +7,7 @@ export interface Threads{
     postedDate: string;
     likes: number;
     dislikes: number;
+    neutral: number;
     comments: number;
     threadImage: string;
 }
