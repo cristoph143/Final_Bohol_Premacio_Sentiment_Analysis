@@ -46,7 +46,9 @@ export class RepliesComponent implements OnInit {
       this.getReplies();
       this.sentiment.addToFrequency();
     })
-   
+    this.getReplies();
+    // call analyze thread
+    this.analyzeThread();
   }
   getReplies(){
     this.replies.length = 0;
@@ -91,11 +93,22 @@ export class RepliesComponent implements OnInit {
     this.dialog.closeAll();
     payload.sentAnal = this.sentiment.getNaiveBayes(payload.reply,threads);
     this.crudReply.addReplies(payload);  
-    
-    
-    
-    // console.log(payload.sentAnal);
-    
+    this.addReply.reset();
   }
-  // 
+  analyzeThread(){
+    // tokenize the
+  }
+  //  fuction to calculate the lenght of each element of an reply string array
+  getLength(reply: string){
+    // copy the reply length to repLength
+    let repLength = reply.length;
+    // loop the len of repLength
+    for(let i = 0; i < repLength; i++){
+      // if the character is a space
+      if(reply[i] == ' '){
+        // reduce the length by 1
+        repLength--;
+      }
+    }
+    
 }
