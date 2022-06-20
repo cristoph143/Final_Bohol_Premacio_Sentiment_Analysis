@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { Injectable, ApplicationRef } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/compat/firestore';
 import { Reply } from './reply';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -13,13 +13,15 @@ export class RepliesService {
   replies!: Observable<Reply[]>;
   constructor(
     private afs: AngularFirestore, 
+    private cdr: ApplicationRef,
   ) { 
-    this.replyCollecton = this.afs.collection<Reply>('replies');
+    this.replyCollecton = this.afs.collection<Reply>('replies', ref => ref.orderBy('repliedDate'));
     this.replies = this.replyCollecton.snapshotChanges().pipe(//basically just to get the id from collection katong random ass numbers
       map((changes: any[]) =>{
         return changes.map(a => {
           const data = a.payload.doc.data() as Reply;
           data.$key = a.payload.doc.id;
+          this.cdr.tick();
           return data;
         });
       }));

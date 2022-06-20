@@ -28,7 +28,6 @@ export class UserDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.crudThreads.getThreads().subscribe((threads: Threads[])=>{
       this.threads = threads;
-      console.log(this.threads);
     })
   }
   showReplies(thread: Threads){
