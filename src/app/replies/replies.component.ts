@@ -21,6 +21,7 @@ export class RepliesComponent implements OnInit {
   threads!: Threads;
   replies: Reply[]=[];
   getThreadData!: Subject<Threads>;
+  currentID: any;
   addReply: FormGroup = new FormGroup({
     replyString: new FormControl('', Validators.required),
   });
@@ -43,9 +44,11 @@ export class RepliesComponent implements OnInit {
   ngOnInit(): void {
     this.fire.authState.subscribe((user: any) => {
       this.email = user.email;
+      console.log(user.email);
       this.getReplies();
       this.sentiment.addToFrequency();
-    })
+    },
+    )
    
   }
   getReplies(){
@@ -95,6 +98,11 @@ export class RepliesComponent implements OnInit {
     
     
     // console.log(payload.sentAnal);
+    
+  }
+
+  delReply(i: any){
+    this.crudReply.delRep(this.replies[i].$key, this.threads, this.replies[i].sentAnal, this.replies[i].reply)
     
   }
   // 
