@@ -55,4 +55,7 @@ export class ThreadsService {
     this.threadCollection.doc(threadID).update(thread);
   }
 
+  deleteThread($key: string) {
+    this.threadCollection.doc($key).delete();
+  }
 }

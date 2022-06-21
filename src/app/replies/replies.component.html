@@ -28,6 +28,8 @@
         <div class="view_item">
             <div class="vi_left">
                 <div class="btn" style="background-color: blue;" (click)="onSubmitReply(threads)">Reply</div>
+                <!-- show delete button if deleteThread is true -->
+                <div class="btn" style="background-color: red;" *ngIf="isDelete" (click)="deleteThread()">Delete</div>
             </div>
         </div>
     </form>
@@ -43,8 +45,10 @@
                     <p class="content" style="font-weight:lighter;">{{reply.repliedBy}}</p>
                     <p class="content" style="font-weight: lighter;">{{reply.repliedDate}}</p>
                     <p class="content" style="font-weight: lighter;" *ngIf="reply.sentAnal == 'Positive'">Feeling {{reply.sentAnal}} 😊</p>
-                    <p class="content" style="font-weight: lighter;" *ngIf="reply.sentAnal == 'Negative'">Feeling {{reply.sentAnal}} 😠</p>
                     <p class="content" style="font-weight: lighter;" *ngIf="reply.sentAnal == 'Neutral'">Feeling {{reply.sentAnal}} 😐</p>
+                    <p class="content" style="font-weight: lighter;" *ngIf="reply.sentAnal == 'Negative'">Feeling {{reply.sentAnal}} 😠</p>
+                    <!-- show delete button if deleteReply is true -->
+                    <div class="btn" style="background-color: red;" *ngIf="isDelete" (click)="isDelRep(reply)">Delete</div>
                 </div>
             </div>
         </div>

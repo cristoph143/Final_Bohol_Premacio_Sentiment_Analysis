@@ -7,6 +7,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { Threads } from '../services/threads/threads-interface';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as moment from 'moment';
+import { SentimentService } from '../services/sentiment/sentiment.service';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -24,6 +25,7 @@ export class CreateComponent implements OnInit {
     private fire: AngularFireAuth,
     private crudThread: ThreadsService,
     private router: Router,
+    private sentiment: SentimentService
   ) { }
 
   addThreadForm: FormGroup = new FormGroup({

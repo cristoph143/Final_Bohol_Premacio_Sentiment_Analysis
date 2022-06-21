@@ -37,4 +37,8 @@ export class RepliesService {
   modifyReplies(replyID: string, reply: Reply) { //get all the changes on the item and update
     this.replyCollecton.doc(replyID).update(reply);
   }
+  // delete reply
+  delReply(replyID: string) {
+    this.replyCollecton.doc(replyID).delete();
+  }
 }

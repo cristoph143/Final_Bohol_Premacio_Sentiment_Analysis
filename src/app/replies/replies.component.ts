@@ -47,8 +47,7 @@ export class RepliesComponent implements OnInit {
       this.sentiment.addToFrequency();
     })
     this.getReplies();
-    // call analyze thread
-    this.analyzeThread();
+    this.showDelete();
   }
   getReplies(){
     this.replies.length = 0;
@@ -94,21 +93,46 @@ export class RepliesComponent implements OnInit {
     payload.sentAnal = this.sentiment.getNaiveBayes(payload.reply,threads);
     this.crudReply.addReplies(payload);  
     this.addReply.reset();
+    this.showDeleteRep(payload);
   }
-  analyzeThread(){
-    // tokenize the
-  }
-  //  fuction to calculate the lenght of each element of an reply string array
-  getLength(reply: string){
-    // copy the reply length to repLength
-    let repLength = reply.length;
-    // loop the len of repLength
-    for(let i = 0; i < repLength; i++){
-      // if the character is a space
-      if(reply[i] == ' '){
-        // reduce the length by 1
-        repLength--;
+  isDelete = false;
+  // if current user is equal to the user who created the thread, then delete button is shown
+  showDelete(){
+    this.fire.authState.subscribe((user: any) => {
+      user.email;
+      console.log(user.email)
+      console.log(this.threads.postedBy)
+
+      if(this.threads.postedBy == user.email){
+        // this.crudThreads.deleteThread(thread.$key);
+        console.log(this.threads.postedBy + " <==> " + user.email)
+        this.isDelete = true;
       }
+    })
+  }
+
+  deleteThread(){
+    if(confirm("Are you sure to delete "+this.threads.title+"?")){ 
+      this.crudThreads.deleteThread(this.threads.$key);
+      this.addReply.reset();
     }
-    
+  }
+  showDeleteRep(payload){
+    this.fire.authState.subscribe((user: any) => {
+      user.email;
+      console.log(user.email)
+      console.log(payload.repliedBy)
+      if(payload.repliedBy == user.email){
+        // this.crudThreads.deleteThread(thread.$key);
+        console.log(payload.repliedBy + " == " + user.email)
+        this.isDelete = true;
+      }
+    })
+  }
+  isDelRep(reply){
+    if(confirm("Are you sure to delete ?")){ 
+      // delete reply by user
+      this.crudReply.delReply(reply.$key)
+    }
+  }
 }
