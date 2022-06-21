@@ -93,7 +93,6 @@ export class RepliesComponent implements OnInit {
     payload.sentAnal = this.sentiment.getNaiveBayes(payload.reply,threads);
     this.crudReply.addReplies(payload);  
     this.addReply.reset();
-    this.showDeleteRep(payload);
   }
   isDelete = false;
   // if current user is equal to the user who created the thread, then delete button is shown
@@ -114,25 +113,6 @@ export class RepliesComponent implements OnInit {
   deleteThread(){
     if(confirm("Are you sure to delete "+this.threads.title+"?")){ 
       this.crudThreads.deleteThread(this.threads.$key);
-      this.addReply.reset();
-    }
-  }
-  showDeleteRep(payload){
-    this.fire.authState.subscribe((user: any) => {
-      user.email;
-      console.log(user.email)
-      console.log(payload.repliedBy)
-      if(payload.repliedBy == user.email){
-        // this.crudThreads.deleteThread(thread.$key);
-        console.log(payload.repliedBy + " == " + user.email)
-        this.isDelete = true;
-      }
-    })
-  }
-  isDelRep(reply){
-    if(confirm("Are you sure to delete ?")){ 
-      // delete reply by user
-      this.crudReply.delReply(reply.$key)
     }
   }
 }
