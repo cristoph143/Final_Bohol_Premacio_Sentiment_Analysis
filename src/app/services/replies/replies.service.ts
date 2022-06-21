@@ -15,7 +15,7 @@ export class RepliesService {
     private afs: AngularFirestore, 
     private cdr: ApplicationRef,
   ) { 
-    this.replyCollecton = this.afs.collection<Reply>('replies', ref => ref.orderBy('repliedDate'));
+    this.replyCollecton = this.afs.collection<Reply>('replies', ref => ref.orderBy('repliedDate', 'desc'));
     this.replies = this.replyCollecton.snapshotChanges().pipe(//basically just to get the id from collection katong random ass numbers
       map((changes: any[]) =>{
         return changes.map(a => {
