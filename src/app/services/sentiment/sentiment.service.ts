@@ -26,7 +26,7 @@ replies: Reply[]=[];
     let ex = sw(reply);
     console.log(ex);
   }
-  addToFrequency(){
+   addToFrequency(){
     let sw: any, ex: any, payload: Frequency;
     const seen = new Set();
     this.frequency.length = 0;
@@ -67,6 +67,7 @@ replies: Reply[]=[];
     }))//end subscribe
   }//end method
   cleanFrequency(frequency: Frequency[],unique: Frequency[]){
+    
     let count: number = 0;
     for(let i = 0; i < unique.length; i++){
       for(let j = 0; j < frequency.length; j++){
@@ -140,7 +141,7 @@ replies: Reply[]=[];
       sentAnalysis = "Negative"
     }else
       sentAnalysis = "Neutral"
-    this.cdr.tick();
+      
     //update thread
     if(sentAnalysis == "Positive"){
       thread.likes = thread.likes + 1;

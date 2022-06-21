@@ -44,31 +44,26 @@ export class RepliesComponent implements OnInit {
   ngOnInit(): void {
     this.fire.authState.subscribe((user: any) => {
       this.email = user.email;
-      console.log(user.email);
       this.getReplies();
       this.sentiment.addToFrequency();
     },
     )
    
   }
-  getReplies(){
-    this.replies.length = 0;
+  async getReplies(){
+    await new Promise(f => setTimeout(f, 100));
+    
     this.crudReply.getReplies().subscribe((reply: Reply[]) => {
+      this.replies.length = 0;
     for(let i  = 0; i < reply.length; i++){
       if(reply[i].threadID == this.threads.$key){
         this.replies.push(reply[i]);
       }
      }
-    
-    //  sort the reply by early dates first
-    // this.replies.sort((a, b) => {
-    //   return moment(a.repliedDate).diff(moment(b.repliedDate));
-    // });
-    
-      this.cdr.tick();
+     
     })
   }
-  onSubmitReply(threads: Threads){
+  async onSubmitReply(threads: Threads){
     if(!this.addReply.valid){
       this.toast.error("Add your reply first!");
       return;
@@ -91,19 +86,16 @@ export class RepliesComponent implements OnInit {
     this.crudThreads.modifyThreads(threads.$key, threads);
     this.toast.success("Reply Added!");
     this.sentiment.addToFrequency();
-    this.dialog.closeAll();
+    
     payload.sentAnal = this.sentiment.getNaiveBayes(payload.reply,threads);
-    this.crudReply.addReplies(payload);  
-    
-    
-    
-    // console.log(payload.sentAnal);
-    
+    this.crudReply.addReplies(payload); 
+    this.addReply.reset(); 
+    // console.log(payload.sentAnal); 
   }
-
   delReply(i: any){
     this.crudReply.delRep(this.replies[i].$key, this.threads, this.replies[i].sentAnal, this.replies[i].reply)
-    
+    this.getReplies();
+    this.toast.success("Reply Deleted!");
   }
   // 
 }
