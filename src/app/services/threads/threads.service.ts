@@ -32,7 +32,7 @@ export class ThreadsService {
     private afs: AngularFirestore, 
     private afAuth: AngularFireAuth,
   ) {
-    this.threadCollection = this.afs.collection<Threads>('threads');
+    this.threadCollection = this.afs.collection<Threads>('threads', ref => ref.orderBy('postedDate', 'desc'));
     this.threads = this.threadCollection.snapshotChanges().pipe(//basically just to get the id from collection katong random ass numbers
       map((changes: any[]) =>{
         return changes.map(a => {

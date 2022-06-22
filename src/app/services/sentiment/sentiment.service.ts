@@ -1,6 +1,6 @@
 import { ThreadsService } from './../threads/threads.service';
 import { Threads } from './../threads/threads-interface';
-import { Frequency } from './frequency';
+import { Frequency, Anal } from './frequency';
 import { ScoreFrequencyService } from './../score/score-frequency.service'
 import { RepliesService } from './../replies/replies.service';
 
@@ -14,26 +14,27 @@ export class SentimentService {
 frequency: Frequency[]=[];
 finalFrequency: Frequency[]=[];
 found: boolean = false;
-replies: Reply[]=[];
+replyFrom: Reply[]=[];
+getString! : Anal
+// replies: Reply[]=[];
   constructor(
     private crudReplies: RepliesService,
     private crudScore: ScoreFrequencyService,
     private cdr: ApplicationRef,
     private crudThread: ThreadsService
   ) { }
-  check(reply: string){
-    let sw = require('sentiword');
-    let ex = sw(reply);
-    console.log(ex);
-  }
-  addToFrequency(){
+  // check(reply: string,thread: Threads, replies: Reply[]){
+  //   let sw = require('sentiword');
+  //   let ex = sw(reply);
+  //   console.log(ex);
+  //   console.log(replies.length);
+    
+    
+  // }
+   addToFrequency(replies: Reply){
     let sw: any, ex: any, payload: Frequency;
-    const seen = new Set();
-    this.frequency.length = 0;
-    this.crudReplies.getReplies().subscribe(((replies: Reply[]) =>{
-      this.replies = replies;
-      for(let i = 0; i < this.replies.length; i++ ){
-        let outString = this.replies[i].reply.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');  
+    const seen = new Set(); 
+        let outString = replies.reply.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');  
          sw = require('sentiword');
          ex = sw(outString);
          for(let i = 0; i < ex.words.length; i++){
@@ -55,18 +56,20 @@ replies: Reply[]=[];
           }
           this.frequency.push(payload);
          } 
-      }//end for
+      //end for
       const filteredArr = this.frequency.filter(el => {
         const duplicate = seen.has(el.keyword);
         seen.add(el.keyword);
         return !duplicate;
       });
         this.finalFrequency = this.cleanFrequency(this.frequency,filteredArr);
+        ////START///
+        ///EDN////
         
-        this.cdr.tick();
-    }))//end subscribe
+   
   }//end method
   cleanFrequency(frequency: Frequency[],unique: Frequency[]){
+    
     let count: number = 0;
     for(let i = 0; i < unique.length; i++){
       for(let j = 0; j < frequency.length; j++){
@@ -108,8 +111,8 @@ replies: Reply[]=[];
       }
     } //end check for positive probability//
    
-    console.log(positive);
-   
+    console.log("For Positive Prob: ",positive);
+    console.log("For Negative Prob: ",negative);
     //check for negative probability//
     for(let i = 0; i < token.length; i++){
       for(let j = 0; j < this.finalFrequency.length; j++){
@@ -140,7 +143,7 @@ replies: Reply[]=[];
       sentAnalysis = "Negative"
     }else
       sentAnalysis = "Neutral"
-    this.cdr.tick();
+    
     //update thread
     if(sentAnalysis == "Positive"){
       thread.likes = thread.likes + 1;
@@ -153,6 +156,7 @@ replies: Reply[]=[];
     }
     this.crudThread.modifyThreads(thread.$key,thread);
     //end update thread
+    
     return sentAnalysis;
     
   } // end method
