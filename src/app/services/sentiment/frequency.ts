@@ -3,3 +3,6 @@ export interface Frequency{
     positive: number,
     negative: number,
 }
+export interface Anal{
+    name: string,
+}

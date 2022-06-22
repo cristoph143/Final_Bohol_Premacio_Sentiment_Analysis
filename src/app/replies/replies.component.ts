@@ -11,6 +11,9 @@ import { Component, OnInit, ChangeDetectorRef, ApplicationRef } from '@angular/c
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RepliesService } from '../services/replies/replies.service';
 import * as moment from 'moment';
+import { Anal } from '../services/sentiment/frequency';
+
+
 @Component({
   selector: 'app-replies',
   templateUrl: './replies.component.html',
@@ -22,6 +25,7 @@ export class RepliesComponent implements OnInit {
   replies: Reply[]=[];
   getThreadData!: Subject<Threads>;
   currentID: any;
+  getString!: string;
   addReply: FormGroup = new FormGroup({
     replyString: new FormControl('', Validators.required),
   });
@@ -36,6 +40,7 @@ export class RepliesComponent implements OnInit {
     private cdr: ApplicationRef
     
   ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.getThreadData = this.crudThreads.passThreadValues$;
     this.getThreadData.subscribe((threads: Threads) =>{
       this.threads = threads;
@@ -44,26 +49,24 @@ export class RepliesComponent implements OnInit {
   ngOnInit(): void {
     this.fire.authState.subscribe((user: any) => {
       this.email = user.email;
-      this.getReplies();
-      this.sentiment.addToFrequency();
     },
     )
-   
+    this.getReplies();
   }
-  async getReplies(){
-    await new Promise(f => setTimeout(f, 100));
-    
+   getReplies(){
     this.crudReply.getReplies().subscribe((reply: Reply[]) => {
       this.replies.length = 0;
     for(let i  = 0; i < reply.length; i++){
       if(reply[i].threadID == this.threads.$key){
         this.replies.push(reply[i]);
       }
+      
      }
      
     })
   }
-  async onSubmitReply(threads: Threads){
+   async onSubmitReply(threads: Threads){
+     let i: number
     if(!this.addReply.valid){
       this.toast.error("Add your reply first!");
       return;
@@ -80,15 +83,33 @@ export class RepliesComponent implements OnInit {
       threadID: threads.$key,
     }
     
-    this.sentiment.check(payload.reply);
     // payload.sentAnal = this.sentiment.preProcessing(payload.reply);
     threads.replies.push(this.addReply.value.replyString);
     this.crudThreads.modifyThreads(threads.$key, threads);
     this.toast.success("Reply Added!");
-    this.sentiment.addToFrequency();
+    // this.sentiment.check(payload.reply,threads,this.replies);
+    // this.crudReply.addReplies(payload);
+    this.crudReply.getReplies().subscribe((reply: Reply[]) => {
+      this.replies.length = 0;
+    for(i  = 0; i < reply.length; i++){
+      if(reply[i].threadID == this.threads.$key){
+        this.replies.push(reply[i]);
+      }
+      
+     }
+    ;
     
-    payload.sentAnal = this.sentiment.getNaiveBayes(payload.reply,threads);
-    this.crudReply.addReplies(payload); 
+    //  this.crudReply.modifyReplies(this.replies[i].$key,payload);
+    })//end subscribe
+    this.sentiment.addToFrequency(payload);
+    payload.sentAnal = this.sentiment.getNaiveBayes(payload.reply,threads)
+    this.crudReply.addReplies(payload);
+    
+    
+    // this.sentiment.addToFrequency(this.replies);
+    // 
+  
+    
     this.addReply.reset(); 
     // console.log(payload.sentAnal); 
   }
@@ -96,6 +117,9 @@ export class RepliesComponent implements OnInit {
     this.crudReply.delRep(this.replies[i].$key, this.threads, this.replies[i].sentAnal, this.replies[i].reply)
     this.getReplies();
     this.toast.success("Reply Deleted!");
+  }
+  setString(data){
+    this.getString = data;
   }
   // 
 }
