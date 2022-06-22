@@ -52,6 +52,7 @@ export class RepliesComponent implements OnInit {
     },
     )
     this.getReplies();
+    this.showDelete();
   }
    getReplies(){
     this.crudReply.getReplies().subscribe((reply: Reply[]) => {
@@ -109,14 +110,38 @@ export class RepliesComponent implements OnInit {
     // this.sentiment.addToFrequency(this.replies);
     // 
   
-    
     this.addReply.reset(); 
     // console.log(payload.sentAnal); 
   }
+
+  isDelete = false;
+  // if current user is equal to the user who created the thread, then delete button is shown
+  showDelete(){
+    this.fire.authState.subscribe((user: any) => {
+      user.email;
+      console.log(user.email)
+      console.log(this.threads.postedBy)
+
+      if(this.threads.postedBy == user.email){
+        // this.crudThreads.deleteThread(thread.$key);
+        console.log(this.threads.postedBy + " <==> " + user.email)
+        this.isDelete = true;
+      }
+    })
+  }
+
+  deleteThread(){
+    if(confirm("Are you sure to delete "+this.threads.title+"?")){ 
+      this.crudThreads.deleteThread(this.threads.$key);
+      this.toast.success("Thread Deleted Successfully!");
+    }
+  }
   delReply(i: any){
-    this.crudReply.delRep(this.replies[i].$key, this.threads, this.replies[i].sentAnal, this.replies[i].reply)
-    this.getReplies();
-    this.toast.success("Reply Deleted!");
+    if(confirm("Are you sure to delete your your reply? ")){ 
+      this.crudReply.delRep(this.replies[i].$key, this.threads, this.replies[i].sentAnal, this.replies[i].reply)
+      this.getReplies();
+      this.toast.success("Reply Deleted Successfully!");
+    }
   }
   setString(data){
     this.getString = data;
