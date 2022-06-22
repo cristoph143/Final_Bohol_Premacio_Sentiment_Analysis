@@ -47,7 +47,7 @@
                     <p class="content" style="font-weight: lighter;" *ngIf="reply.sentAnal == 'Positive'">Feeling {{reply.sentAnal}} 😊</p>
                     <p class="content" style="font-weight: lighter;" *ngIf="reply.sentAnal == 'Neutral'">Feeling {{reply.sentAnal}} 😐</p>
                     <p class="content" style="font-weight: lighter;" *ngIf="reply.sentAnal == 'Negative'">Feeling {{reply.sentAnal}} 😠</p>
-                    <p class="content" style="font-weight: lighter;" *ngIf="reply.sentAnal == 'Neutral'">Feeling {{reply.sentAnal}} 😐</p>
+                    
                     <div class="btn" style="background-color: red;" *ngIf="reply.repliedBy == this.email" (click)="delReply(i)">Delete</div>
                 </div>
             </div>
