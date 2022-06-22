@@ -16,6 +16,9 @@ finalFrequency: Frequency[]=[];
 found: boolean = false;
 replyFrom: Reply[]=[];
 getString! : Anal
+negationWord: string[] = [];
+intensifier: string[] = [];
+downtoners: string[] = [];
 // replies: Reply[]=[];
   constructor(
     private crudReplies: RepliesService,
@@ -93,11 +96,29 @@ getString! : Anal
     let token = outString.split(" ",outString.length);
     let positive: number[]=[], negative: number[]=[];
     let totalProbPositive: number = 0, totalProbNegative: number = 0;
-    //check for total positive and negative//
+    this.negationWord = ["not", "n't", "never", "none", "nothing", "no", "neither", "nowhere", "never", "nope",
+      "can't", "couldn't", "didn't", "doesn't", "don't", "hadn't", "hasn't", "haven't", "isn't", "mayn't",
+      "mightn't", "mustn't", "needn't", "oughtn't", "shan't", "shouldn't", "wasn't", "weren't", "won't", "wouldn't"];
+    // list all intensifier and save it to this.intensifier
+    this.intensifier = ["very","always", "extremely", "absolutely", "totally", "tremendously", "totally"];
+    // list all downtoners and save it to this.downtoners
+    this.downtoners = ["quite", "very", "pretty"]
+    // loop the finalFrequency and get the keyword
     for(let i = 0; i < this.finalFrequency.length; i++){
+      console.log("+: = ", totalPositive, " -: ", totalNegative);
+      // match this.finalFrequency[i].keyword with the negationWord
+      if(this.negationWord.includes(this.finalFrequency[i].keyword)){
+        this.finalFrequency[i].negative += 1;
+      }
+      else if(this.intensifier.includes(this.finalFrequency[i].keyword) ||
+        this.downtoners.includes(this.finalFrequency[i].keyword)){
+          this.finalFrequency[i].positive += 1;
+        }
+      //check for total positive and negative//
       totalPositive = totalPositive + this.finalFrequency[i].positive;
       totalNegative = totalNegative + this.finalFrequency[i].negative;
-    }    
+      console.log("+: ", totalPositive, " -: ", totalNegative);
+    }
     //end check for total positive and negative//
     //check for positive probability//
      console.log("FREQ",this.finalFrequency);
