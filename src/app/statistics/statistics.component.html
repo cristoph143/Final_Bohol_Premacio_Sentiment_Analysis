@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+<div *ngIf="threads.length > 0;else noThreads" class="container"></div>
+<div class="wrapper" *ngFor="let thread of threads; let i = index">
+    <div class="view_main">
+        <div class="view_wrap list-view" style="display: block;">
+            <div class="view_item">
+                <div class="vi_left">
+                    <img src="{{thread.threadImage}}" alt="Image of a car">
+                    <p class="content"> {{thread.postedBy}}</p>
+                    <p class="content"> {{thread.postedDate}}</p>
+                </div>
+                <div class="vi_right">
+                    
+                    <p class="title">{{thread.title}}</p>
+                    <p class="content" style="color: blue;">This thread has {{pos[i]}}% positivity score</p>
+                    <p class="content" style="color: red;">This thread has {{neg[i]}}% negativity score</p>
+                    <p class="content" style="color: grey;">This thread has {{neutral[i]}}% neutralitiy score</p>
+                    <p class="content" style="color: black;">With a total of {{thread.replies.length}} comments</p>
+                    <!-- <p class="content">This Thread is feeling (insert sentiment ANAL)</p> -->
+                    <!-- <p class="content" (click)="showReplies()" *ngIf="thread.replies.length != 0">{{thread.postedBy}}:</p> -->
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    
+
+    <ng-template #noThreads>
+        <hr>
+        <h5 class="noThreads">There are no threads listed!</h5>
+        
+    </ng-template>
+    

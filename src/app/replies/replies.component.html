@@ -1,0 +1,57 @@
+<!--THREEEADDD-->
+<div class="wrapper">
+    <div class="view_main">
+        <div class="view_wrap list-view" style="display: block;">
+            <div class="view_item">
+                <div class="vi_left">
+                    <img src="{{threads.threadImage}}" alt="Image of a car">
+                    <!-- <p class="content">Thread by: {{threads.postedBy}}</p>
+                    <p class="content">{{threads.postedDate}}</p> -->
+                </div>
+                <div class="vi_right">
+                    <p class="title">{{threads.title}}</p>
+                    <p class="description">{{threads.subtitle}}</p>
+                    <!-- <p class="content">This Thread is feeling (insert sentiment ANAL)</p> -->
+                    <!-- <p class="content" (click)="showReplies()" *ngIf="thread.replies.length != 0">{{thread.postedBy}}:</p> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END THREEEADDD-->
+<!--REPLLYYYY-->
+<div class="textArea">
+    <form class="inputs" style="padding-left: 10px;display: flex; align-items: center; width: 100%;" [formGroup]="addReply" method="POST">
+        <textarea class="comment" formControlName="replyString" placeholder="Type your reply"></textarea>
+        <br>
+        <div class="view_item">
+            <div class="vi_left">
+                <div class="btn" style="background-color: blue;" (click)="onSubmitReply(threads)">Reply</div>
+                <!-- show delete button if deleteThread is true -->
+                <div class="btn" style="background-color: red;" *ngIf="isDelete" (click)="deleteThread()">Delete</div>
+            </div>
+        </div>
+    </form>
+</div>
+<!--END REPLLYYYY-->
+<!--START REPLY LIST--->
+<div class="wrapper" *ngFor="let reply of replies; index as i">
+    <div class="view_main">
+        <div class="view_wrap list-view" style="display: block;">
+            <div class="view_item">
+                <div class="vi_right">
+                    <p class="content" style="font-weight: bolder; font-size: 25px">{{reply.reply}}</p>
+                    <p class="content" style="font-weight:lighter;">{{reply.repliedBy}}</p>
+                    <p class="content" style="font-weight: lighter;">{{reply.repliedDate}}</p>
+                    <p class="content" style="font-weight: lighter;" *ngIf="reply.sentAnal == 'Positive'">Feeling {{reply.sentAnal}} 😊</p>
+                    <p class="content" style="font-weight: lighter;" *ngIf="reply.sentAnal == 'Neutral'">Feeling {{reply.sentAnal}} 😐</p>
+                    <p class="content" style="font-weight: lighter;" *ngIf="reply.sentAnal == 'Negative'">Feeling {{reply.sentAnal}} 😠</p>
+                    
+                    <div class="btn" style="background-color: red;" *ngIf="reply.repliedBy == this.email" (click)="delReply(i)">Delete</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END REPLY LIST--->
