@@ -1,3 +1,4 @@
+import { StatisticsComponent } from './statistics/statistics.component';
 import { RepliesComponent } from './replies/replies.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'replies',
     component: RepliesComponent,
+  },
+  {
+    path: 'stats',
+    component: StatisticsComponent,
   },
 ];
 

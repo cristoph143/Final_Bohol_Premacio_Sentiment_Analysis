@@ -23,6 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateComponent } from './create/create.component';
 import { RepliesComponent } from './replies/replies.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { RepliesComponent } from './replies/replies.component';
     UserDashboardComponent,
     NavbarComponent,
     CreateComponent,
-    RepliesComponent
+    RepliesComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
