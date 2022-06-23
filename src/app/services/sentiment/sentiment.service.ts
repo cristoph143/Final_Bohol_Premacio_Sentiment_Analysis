@@ -6,6 +6,7 @@ import { RepliesService } from './../replies/replies.service';
 
 import { Injectable, ChangeDetectorRef, ApplicationRef } from '@angular/core';
 import { Reply } from '../replies/reply';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +21,14 @@ negationWord: string[] = [];
 intensifier: string[] = [];
 downtoners: string[] = [];
 // replies: Reply[]=[];
+
+//https://www.cdc.gov/coronavirus/2019-ncov/map-data-cases.csv
   constructor(
     private crudReplies: RepliesService,
     private crudScore: ScoreFrequencyService,
     private cdr: ApplicationRef,
-    private crudThread: ThreadsService
+    private crudThread: ThreadsService,
+    private http: HttpClient,
   ) { }
   check(reply: string){
     let sw = require('sentiword');
@@ -32,8 +36,53 @@ downtoners: string[] = [];
     console.log("REPLY SENTIWOR: ",ex);
     
   }
-    
+    //https://download.data.world/file_download/crowdflower/mcdonalds-review-sentiment/McDonalds-Yelp-Sentiment-DFE.csv
   // }
+  getDataFromCsV(data: any[]=[]){
+    console.log(data.length);
+    let sw: any, ex: any,payload: Frequency, count: number = 0;
+    const seen = new Set(); 
+    for(let i  = 0; i < data.length; i++){
+      
+      let outString = data[i].sentiment.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');  
+      sw = require('sentiword');
+      ex = sw(outString);
+      
+      for(let i = 0; i < ex.words.length; i++){
+        payload = {
+         keyword: ex.words[i].SynsetTerms,
+         positive: ex.words[i].PosScore,
+         negative: ex.words[i].NegScore,
+        }
+        
+        // this.cleanFrequency(payload,this.frequency);
+        if(payload.positive > payload.negative){
+          payload.positive = 1;
+          payload.negative = 0;
+        }else if(payload.positive < payload.negative){
+          payload.negative = 1;
+          payload.positive = 0;
+        }else{
+          payload.negative = 0;
+          payload.positive = 0;
+        }
+        this.frequency.push(payload);
+       
+       }
+        
+    //end for
+   
+    }//end main for
+    const filteredArr = this.frequency.filter(el => {
+      const duplicate = seen.has(el.keyword);
+      seen.add(el.keyword);
+      return !duplicate;
+    });
+      console.log("Before Filtering",this.frequency.length);
+      console.log("After Filtering",filteredArr.length);
+      this.finalFrequency = this.cleanFrequency(this.frequency,filteredArr);
+    console.log("Freq from csv", this.finalFrequency);
+  }//end func
    addToFrequency(replies: Reply){
     let sw: any, ex: any, payload: Frequency;
     const seen = new Set(); 

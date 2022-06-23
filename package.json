@@ -25,6 +25,7 @@
     "@ngneat/overview": "^3.0.0",
     "firebase": "^9.8.3",
     "moment": "^2.29.3",
+    "ngx-csv-parser": "^1.1.1",
     "ngx-toastr": "^14.3.0",
     "rxjs": "~7.5.0",
     "rxjs-compat": "^6.6.7",

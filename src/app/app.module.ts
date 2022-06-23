@@ -24,6 +24,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateComponent } from './create/create.component';
 import { RepliesComponent } from './replies/replies.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { NgxCsvParserModule } from 'ngx-csv-parser';
+import { HttpClientModule } from '@angular/common/http';
+import { CsvComponent } from './csv/csv.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
     NavbarComponent,
     CreateComponent,
     RepliesComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    CsvComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +54,9 @@ import { StatisticsComponent } from './statistics/statistics.component';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    NgxCsvParserModule,
+    HttpClientModule,
+    NgxCsvParserModule,
   
   ],
   providers: [],

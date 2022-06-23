@@ -7,26 +7,40 @@ import { Threads } from './../services/threads/threads-interface';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { HotToastService } from '@ngneat/hot-toast';
 import { ThreadsService } from './../services/threads/threads.service';
-import { Component, OnInit, ChangeDetectorRef, ApplicationRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ApplicationRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RepliesService } from '../services/replies/replies.service';
 import * as moment from 'moment';
 import { Anal } from '../services/sentiment/frequency';
 import { runInThisContext } from 'vm';
+import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
 
+export class CsvData {
+  public id: any;
+  public min: any;
+  public max: any;
+  public sentiment: any;
+  
+}
 
 @Component({
   selector: 'app-replies',
   templateUrl: './replies.component.html',
   styleUrls: ['./replies.component.css']
 })
+
 export class RepliesComponent implements OnInit {
+  
   email!: any;
   threads!: Threads;
   replies: Reply[]=[];
   getThreadData!: Subject<Threads>;
   currentID: any;
   getString!: string;
+  public dataSet:  any[]=[];
+  header!: true;
+  csvArr: any[]=[];
+ 
   addReply: FormGroup = new FormGroup({
     replyString: new FormControl('', Validators.required),
   });
@@ -38,7 +52,7 @@ export class RepliesComponent implements OnInit {
     private router: Router,
     private fire: AngularFireAuth,
     private sentiment: SentimentService,
-    private cdr: ApplicationRef
+    private csv: NgxCsvParser,
     
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -47,11 +61,22 @@ export class RepliesComponent implements OnInit {
       this.threads = threads;
     })
    }
+ 
+  // getDataTest(){
+  //   if(this.count == false){
+  //     console.log("once");
+  //     this.count = true;
+  //   }
+    
+  // }
   ngOnInit(): void {
+   
+    
     this.fire.authState.subscribe((user: any) => {
       this.email = user.email;
     },
     )
+    // this.getDataSet();
     this.getReplies();
     this.showDelete();
   }
@@ -145,8 +170,6 @@ export class RepliesComponent implements OnInit {
       this.toast.success("Reply Deleted Successfully!");
     }
   }
-  setString(data){
-    this.getString = data;
-  }
+
   // 
 }

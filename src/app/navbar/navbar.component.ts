@@ -1,3 +1,4 @@
+import { CsvComponent } from './../csv/csv.component';
 import { CreateComponent } from './../create/create.component';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication/authentication.service';
@@ -30,6 +31,13 @@ export class NavbarComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width =  "60%";
     this.dialog.open(CreateComponent,dialogConfig);
+  } 
+  showCSV(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width =  "60%";
+    this.dialog.open(CsvComponent,dialogConfig);
   }
 
 }
