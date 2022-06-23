@@ -41,7 +41,7 @@ export class CreateComponent implements OnInit {
     this.addThreadForm.reset();
   }
   onFileChanged(event) {
-    console.log('triggered');
+    
     const files = event.target.files;
     if (files.length === 0)
       return;
@@ -57,7 +57,7 @@ export class CreateComponent implements OnInit {
     reader.readAsDataURL(files[0]);
     reader.onload = (_event) => {
       this.url = reader.result;
-      console.log(this.url);
+      
       this.validImage = true;
     }
   }

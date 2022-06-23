@@ -26,12 +26,12 @@ downtoners: string[] = [];
     private cdr: ApplicationRef,
     private crudThread: ThreadsService
   ) { }
-  // check(reply: string,thread: Threads, replies: Reply[]){
-  //   let sw = require('sentiword');
-  //   let ex = sw(reply);
-  //   console.log(ex);
-  //   console.log(replies.length);
+  check(reply: string){
+    let sw = require('sentiword');
+    let ex = sw(reply);
+    console.log("REPLY SENTIWOR: ",ex);
     
+  }
     
   // }
    addToFrequency(replies: Reply){
@@ -105,7 +105,7 @@ downtoners: string[] = [];
     this.downtoners = ["quite", "very", "pretty"]
     // loop the finalFrequency and get the keyword
     for(let i = 0; i < this.finalFrequency.length; i++){
-      console.log("+: = ", totalPositive, " -: ", totalNegative);
+      
       // match this.finalFrequency[i].keyword with the negationWord
       if(this.negationWord.includes(this.finalFrequency[i].keyword)){
         this.finalFrequency[i].negative += 1;
@@ -117,11 +117,11 @@ downtoners: string[] = [];
       //check for total positive and negative//
       totalPositive = totalPositive + this.finalFrequency[i].positive;
       totalNegative = totalNegative + this.finalFrequency[i].negative;
-      console.log("+: ", totalPositive, " -: ", totalNegative);
+      
     }
     //end check for total positive and negative//
     //check for positive probability//
-     console.log("FREQ",this.finalFrequency);
+     console.log("FREQ DICT",this.finalFrequency);
     for(let i = 0; i < token.length; i++){
       for(let j = 0; j < this.finalFrequency.length; j++){
         if(token[i] == this.finalFrequency[j].keyword){
@@ -133,7 +133,6 @@ downtoners: string[] = [];
     } //end check for positive probability//
    
     console.log("For Positive Prob: ",positive);
-    console.log("For Negative Prob: ",negative);
     //check for negative probability//
     for(let i = 0; i < token.length; i++){
       for(let j = 0; j < this.finalFrequency.length; j++){
@@ -144,6 +143,7 @@ downtoners: string[] = [];
         }
       }
     }  //end check for negative probability//
+    console.log("For Negative Prob: ",negative);
     totalProbNegative = negative[0];
     totalProbPositive = positive[0];
     for(let i = 1; i < negative.length; i++){

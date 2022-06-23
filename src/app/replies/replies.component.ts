@@ -12,6 +12,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RepliesService } from '../services/replies/replies.service';
 import * as moment from 'moment';
 import { Anal } from '../services/sentiment/frequency';
+import { runInThisContext } from 'vm';
 
 
 @Component({
@@ -102,6 +103,7 @@ export class RepliesComponent implements OnInit {
     
     //  this.crudReply.modifyReplies(this.replies[i].$key,payload);
     })//end subscribe
+    this.sentiment.check(payload.reply);
     this.sentiment.addToFrequency(payload);
     payload.sentAnal = this.sentiment.getNaiveBayes(payload.reply,threads)
     this.crudReply.addReplies(payload);
@@ -119,12 +121,11 @@ export class RepliesComponent implements OnInit {
   showDelete(){
     this.fire.authState.subscribe((user: any) => {
       user.email;
-      console.log(user.email)
-      console.log(this.threads.postedBy)
+      
 
       if(this.threads.postedBy == user.email){
         // this.crudThreads.deleteThread(thread.$key);
-        console.log(this.threads.postedBy + " <==> " + user.email)
+        
         this.isDelete = true;
       }
     })
