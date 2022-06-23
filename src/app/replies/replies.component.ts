@@ -134,6 +134,7 @@ export class RepliesComponent implements OnInit {
     if(confirm("Are you sure to delete "+this.threads.title+"?")){ 
       this.crudThreads.deleteThread(this.threads.$key);
       this.toast.success("Thread Deleted Successfully!");
+      this.dialog.closeAll();
     }
   }
   delReply(i: any){
